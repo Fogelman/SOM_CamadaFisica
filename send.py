@@ -17,8 +17,8 @@ freq = {
     "0":[941,1336],
 
 }
-amplitude = 1
-periodo = 10000 #Em segundos
+amplitude = 0.5
+periodo = 1 #Em segundos
 fs = 4000
 signal = signalTeste.signalMeu()
 
@@ -31,3 +31,4 @@ x2 = signal.generateSin(freq[digito][1],amplitude,periodo,fs)[1]
 total = x1 +x2
 
 sd.play(total, 5000)
+sd.wait()
