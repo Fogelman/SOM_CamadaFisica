@@ -3,6 +3,10 @@
 import signalTeste
 import numpy as np
 import sounddevice as sd
+<<<<<<< HEAD
+=======
+
+>>>>>>> 95e2f1d4463b78e3574218d5bf627f51df65a7ce
 freq = {
     "1":[697,1209],
     "2":[697,1336],
@@ -16,9 +20,9 @@ freq = {
     "0":[941,1336],
 
 }
-amplitude = 1
+amplitude = 0.5
 periodo = 1 #Em segundos
-fs = 3500
+fs = 4000
 signal = signalTeste.signalMeu()
 
 digito = input("Digite um numero: ")
@@ -27,9 +31,9 @@ total = []
 
 x1 = signal.generateSin(freq[digito][0],amplitude,periodo,fs)[1]
 x2 = signal.generateSin(freq[digito][1],amplitude,periodo,fs)[1]
-total = np.array(x1+x2)
-print(total)
 
+total = x1 +x2
 
-sd.play(total,fs)
-sd.wait()   
+sd.play(total, 5000)
+sd.wait()
+
