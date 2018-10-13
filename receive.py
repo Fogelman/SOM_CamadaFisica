@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import signalTeste
-import numpy as np
+from signalTeste import signalMeu
 import sounddevice as sd
 
 import matplotlib.pyplot as plt
-from scipy.fftpack import fft
-from scipy import signal as window
-import peakutils
 import json
 
 
@@ -15,7 +11,7 @@ import json
 with open ("data.json") as json_file:
     data = json.load(json_file)
 
-signal = signalTeste.signalMeu()
+signal = signalMeu()
 fs= 44100
 duration = 2  # seconds
 freq = data["freq"]
@@ -34,19 +30,8 @@ def play_recording (recording, fs):
     sd.play(recording,fs)
     sd.wait()
 
-def plotFFT(x,y):
-    indexes = peakutils.indexes(y, thres=0.5, min_dist=30)
-    print(x[indexes], y[indexes])
-
-    # point = [x[indexes][0],y[indexes][0]]
-    plt.figure()
-    plt.plot(x, y)
-    for i in range(len(x[indexes])):
-        plt.plot(x[indexes][i],y[indexes][i],'ro')  
-    plt.show()
-    plt.title('Fourier')
-
+plt.close("all") #fecha todos os gráficos
 recording = record(duration,fs)
 x,y = signal.calcFFT(recording, fs)
 # play_recording(recording,fs)
-plotFFT(x,y)
+signal.plotFFT(x,y)
