@@ -16,7 +16,6 @@ with open ("data.json") as json_file:
 
 
 freq = data["freq"]
-FPS=30
 amplitude = 0.5
 periodo = 1 #Em segundos
 fs = 44100
@@ -55,7 +54,6 @@ def subplot_signal (x1,t1,x2,t2,total,digito):
     plt.tight_layout()
     plt.show(block=False)
 
-clock = pygame.time.Clock()
 digito = "a"
 while True:
     
@@ -66,37 +64,24 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_0:
                 digito = "0"
-                break
             elif event.key == pygame.K_1:
                 digito = "1"
-                break
             elif event.key == pygame.K_2:
                 digito = "2"
-                break
             elif event.key == pygame.K_3:
                 digito = "3"
-                break
             elif event.key == pygame.K_4:
                 digito = "4"
-                break
             elif event.key == pygame.K_5:
                 digito = "5"
-                break
             elif event.key == pygame.K_6:
                 digito = "6"
-                break
             elif event.key == pygame.K_7:
                 digito = "7"
-                break
             elif event.key == pygame.K_8:
                 digito = "8"
-                break
             elif event.key == pygame.K_9:
                 digito = "9"
-                break
-
-        
-
 
 
 
@@ -124,7 +109,6 @@ while True:
 
         digito = "a" #Reseta os digitos para não tocar
 
-    clock.tick(FPS)
 
 
         
