@@ -17,7 +17,7 @@ with open ("data.json") as json_file:
 
 freq = data["freq"]
 amplitude = 0.5
-periodo = 1 #Em segundos
+periodo = 3 #Em segundos
 fs = 44100
 signal = signalMeu()
 
@@ -89,7 +89,7 @@ while True:
         print("O digito a ser enviado é: {0}".format(digito))
         plt.close("all") 
         total = []
-        t1, x1 = signal.generateSin(freq[digito][0],amplitude,periodo,fs)
+        t1, x1 = signal.generateSin(freq[digito][0],amplitude*4,periodo,fs)
         t2, x2 = signal.generateSin(freq[digito][1],amplitude,periodo,fs)
         
         total = x1 +x2
