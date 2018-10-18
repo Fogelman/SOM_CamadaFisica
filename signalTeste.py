@@ -17,7 +17,7 @@ class signalMeu:
     def generateSin(self, freq, amplitude, time, fs):
         n = time*fs
         x = np.linspace(0.0, time, n)
-        s = amplitude*np.sin(freq*x*2*np.pi)
+        s = float(amplitude*np.sin(freq*x*2*np.pi))
         return (x, s)
 
     def calcFFT(self, signal, fs):
@@ -30,7 +30,7 @@ class signalMeu:
         return(xf, np.abs(yf[0:N//2]))
 
     def calcPeaks(self,y):
-        indexes = peakutils.indexes(y, thres=0.5, min_dist=30)
+        indexes = peakutils.indexes(y, thres=0.2, min_dist=30)
         return indexes
     def plotFFT(self, x,y,title = "FFT"):
         
@@ -48,6 +48,9 @@ class signalMeu:
         plt.ylim(-100, max(y[indexes])+2000 )
         plt.title('Fourier')
         plt.show(block=False)
+        plt.draw()
+        plt.pause(0.1)
+
 
 
 
@@ -63,5 +66,12 @@ class signalMeu:
         for peak in peaks:
             found = all_frequencies[np.where(np.logical_and(all_frequencies>=peak - stdd/2, all_frequencies<=peak +stdd/2))]
             found_frequencies = np.append(found_frequencies,found)
-
-        return list(found_frequencies)
+        found_frequencies = list(found_frequencies)
+        if len(found_frequencies)> 1:
+            try:
+                digito =list(frequencies.keys())[list(frequencies.values()).index(found_frequencies)]
+                return found_frequencies, digito
+            except:
+                return found_frequencies, None
+        
+        return found_frequencies, None
