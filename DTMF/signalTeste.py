@@ -17,7 +17,7 @@ class signalMeu:
     def generateSin(self, freq, amplitude, time, fs):
         n = time*fs
         x = np.linspace(0.0, time, n)
-        s = float(amplitude*np.sin(freq*x*2*np.pi))
+        s = float(amplitude)*np.sin(freq*x*2*np.pi)
         return (x, s)
 
     def calcFFT(self, signal, fs):

@@ -97,7 +97,7 @@ while True:
        
         x_fft, y_fft = signal.calcFFT(total,fs)
 
-        # signal.plotFFT(x_fft,y_fft,"FFT digito {0}".format(digito))
+        signal.plotFFT(x_fft,y_fft,"FFT digito {0}".format(digito))
         subplot_signal(x1,t1,x2,t2,total,digito)
 
 
@@ -108,23 +108,3 @@ while True:
         sd.wait()
 
         digito = "a" #Reseta os digitos para não tocar
-
-
-
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-
