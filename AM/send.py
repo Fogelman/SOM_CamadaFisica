@@ -46,12 +46,11 @@ datanorm= normalizar(data[:,0])
 datafilter= filtro(datanorm)
 # print(datafilter)
 
-s, portadora = generateSin(2000,3, 5,fs)
-# sd.play(portadora,fs)
-# sd.wait()
+s, portadora = generateSin(2000,1, 5,fs)
+print(len(datafilter))
+print(len(portadora))
 
-modulada= portadora* datafilter
-
-print(modulada)
-sd.play(modulada, fs)
+modulada= portadora*datafilter + portadora
+sd.play(modulada,fs)
 sd.wait()
+print(modulada)
