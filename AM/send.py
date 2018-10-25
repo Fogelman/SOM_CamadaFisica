@@ -10,13 +10,13 @@ data, samplerate = sf.read("gravacao.wav")
 # sd.wait()
 
 fs= 44100
-
+duration = 5
 print(data[:,0])
 
 
 def normalizar(data):
 	# norm1= (data - min(data))/ (max(data) - min(data))
-	abs_mod = [max(data), abs(min(data))]
+	abs_mod = [np.max(data), np.abs(min(data))]
 	norm= data/max(abs_mod)
 
 	return norm
@@ -26,7 +26,7 @@ def filtro(data):
 	width = 5.0/nyq_rate
 	ripple_db = 60.0 #dB
 	N , beta = signal.kaiserord(ripple_db, width)
-	cutoff_hz = 1500.0
+	cutoff_hz = 3000
 	taps = signal.firwin(N, cutoff_hz/nyq_rate, window=('kaiser', beta))
 	yFiltrado = signal.lfilter(taps, 1.0, data)
 	return yFiltrado
@@ -37,20 +37,17 @@ def generateSin(freq, amplitude, time, fs):
 	s = float(amplitude)*np.sin(freq*x*2*np.pi)
 	return (x, s)
 
+def playRecording(modulada,fs):
+	sd.play(modulada,fs)
+	sd.wait()
 
 datanorm= normalizar(data[:,0])
-# print(datanorm)
-# print(np.max(datanorm))
-# print(np.min(datanorm))
-
 datafilter= filtro(datanorm)
-# print(datafilter)
+s, portadora = generateSin(12000,1, duration,fs)
+modulada = np.multiply(portadora, datafilter)
+# modulada= portadora*datanorm
+print("SEND")
+a = input("TESTANDO")
 
-s, portadora = generateSin(2000,1, 5,fs)
-print(len(datafilter))
-print(len(portadora))
-
-modulada= portadora*datafilter + portadora
-sd.play(modulada,fs)
-sd.wait()
+playRecording(modulada,fs)
 print(modulada)
