@@ -6,12 +6,12 @@ import json
 import numpy as np
 import time
 from scipy import signal 
-
+from signalTeste import signalMeu
 
 fs= 44100
 duration = 10
 freq = 12000
-
+sinal = signalMeu()
 
 
 
@@ -27,7 +27,7 @@ def record (duration, fs):
 
 def demodulate (recording, base_freq, fs,duration):
 	s, portadora = generateSin(base_freq,1, duration,fs)
-	demodulate = portadora*recording
+	demodulate =np.multiply(portadora,recording)
 	return demodulate
 
 def filtro(data,samplerate,cutoff_hz = 2000.0):
@@ -45,6 +45,15 @@ def generateSin(freq, amplitude, time, fs):
 	x = np.linspace(0.0, time, n)
 	s = float(amplitude)*np.sin(freq*x*2*np.pi)
 	return (x, s)
+def plotTempo(y,title="Dominio do tempo"):
+	plt.figure(title)
+	plt.plot(y)
+	plt.ylabel('Amplitude', fontsize=8)
+	plt.xlabel('Tempo', fontsize=8)
+	plt.show(block=False)
+	plt.draw()
+	plt.pause(0.1)
+
 
 
 #plt.close("all") #fecha todos os gráficos
@@ -55,3 +64,14 @@ filtrada = filtro(demodulada,fs,4000)
 print(filtrada)
 sd.play(10*filtrada,fs)
 sd.wait()
+
+plotTempo(recording,"Sinal de áudio recebido")
+sinal.plotFFT(recording,fs,"Sinal de áudio recebido FFT",cor='c')
+
+
+plotTempo(filtrada,"Sinal de áudio demodulado")
+sinal.plotFFT(filtrada,fs,"Sinal de áudiodemodulado FFT",cor='c')
+
+
+while True:
+	pass
