@@ -2,10 +2,11 @@ import soundfile as sf
 import sounddevice as sd
 import numpy as np
 from scipy import signal 
-
+import matplotlib.pyplot as plt
+from signalTeste import signalMeu
 
 data, samplerate = sf.read("gravacao.wav")
-
+sinal = signalMeu()
 # sd.play(data)
 # sd.wait()
 
@@ -40,11 +41,29 @@ def generateSin(freq, amplitude, time, fs):
 def playRecording(modulada,fs):
 	sd.play(modulada,fs)
 	sd.wait()
+def plotTempo(y,title="Dominio do tempo"):
+	plt.figure(title)
+	plt.plot(y)
+	plt.ylabel('Amplitude', fontsize=8)
+	plt.xlabel('Tempo', fontsize=8)
+	plt.show(block=False)
 
 datanorm= normalizar(data[:,0])
 datafilter= filtro(datanorm)
 s, portadora = generateSin(12000,1, duration,fs)
 modulada = np.multiply(portadora, datafilter)
+
+plotTempo(data[:,0],"Sinal de áudio original")
+plotTempo(datanorm,"Sinal de áudio normalizado")
+plotTempo(datafilter,"Sinal de áudio filtrado")
+plotTempo(modulada,"Sinal de áudio modulado")
+
+
+
+sinal.plotFFT(data[:,0],fs,"Sinal de áudio original FFT",cor='c')
+sinal.plotFFT(datanorm,fs,"Sinal de áudio normalizado FFT",cor='r')
+sinal.plotFFT(datafilter,fs,"Sinal de áudio filtrado FFT")
+sinal.plotFFT(modulada,fs,"Sinal de áudio modulado FFT")
 # modulada= portadora*datanorm
 print("SEND")
 a = input("TESTANDO")
