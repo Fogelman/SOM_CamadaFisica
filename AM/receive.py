@@ -27,7 +27,7 @@ def record (duration, fs):
 
 def demodulate (recording, base_freq, fs,duration):
 	s, portadora = generateSin(base_freq,1, duration,fs)
-	demodulate = portadora*recording
+	demodulate =np.multiply(portadora,recording)
 	return demodulate
 
 def filtro(data,samplerate,cutoff_hz = 2000.0):
