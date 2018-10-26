@@ -69,4 +69,5 @@ print("SEND")
 a = input("TESTANDO")
 
 playRecording(modulada,fs)
+plt.close("all")
 print(modulada)
