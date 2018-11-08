@@ -1,7 +1,15 @@
 import socket 
+
+host= "localhost"
+port=1234
 s= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(("localhost", 1234))
+orig= (host,port)
+s.bind(orig)
 s.listen(1)
+
 while True:
-    print(s.accept()[1])
-    print(s.receive())
+	con, cliente = s.accept()
+	while True:
+		msg = con.recv(1024)
+		if not msg: break
+	con.close()
